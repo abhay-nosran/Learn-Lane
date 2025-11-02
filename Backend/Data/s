@@ -1,0 +1,67 @@
+# {
+#   _id: ObjectId,
+#   name: String,                     // Title of the subtopic
+#   type: {                           // Determines behavior
+#     type: String,                   // "data" | "group"
+#     required: true
+#   },
+#   status: {                         // For lazy generation
+#     type: String,                   // "not_generated" | "generated"
+#     default: "not_generated"
+#   },
+#   meta: {                           // AI generation context
+#     level: Number,                  // Hierarchy depth
+#     parentId: ObjectId,             // Reference to parent subtopic or null
+#     topicId: ObjectId,              // Root topic reference
+#     context: String,                // What this subtopic should cover
+#     generationGoal: String,         // Instruction for AI
+#     experienceLevel: String,        // Beginner | Intermediate | Advanced
+#     timelinePortion: Number,        // Number of days assigned
+#     additionalHints: Object         // Optional extra info for the generator
+#   },
+#   data: {                           // Filled only when type === "data"
+#     type: String,
+#     default: null
+#   },
+#   children: [                       // When type === "group"
+#     {
+#       id: ObjectId,                 // Child subtopic reference
+#       name: String                  // Child title for faster access
+#     }
+#   ],
+#   createdAt: { type: Date, default: Date.now },
+#   updatedAt: { type: Date, default: Date.now }
+# }
+
+# {
+#   _id: ObjectId,
+#   name: String,                     // Title of the subtopic
+#   type: {                           // Determines behavior
+#     type: String,                   // "data" | "group" | "not-decided"
+#     required: true,
+#     default : "not-decided"
+#   },
+#   status: {                         // For lazy generation
+#     type: String,                   // "not_generated" | "generated"
+#     default: "not_generated"
+#   },
+#   meta: {          
+#     // AI generation context to be filled during shallow-generation
+#     level: Number,                  // Hierarchy depth
+#     parentId: ObjectId,             // Reference to parent subtopic or null
+#     topicId: ObjectId,              // Root topic reference
+#     context: String,                // What this subtopic should cover
+#     generationGoal: String,         // Instruction for AI
+#     experienceLevel: String,        // Beginner | Intermediate | Advanced
+#     timelinePortion: Number,        // Number of days assigned
+#     additionalHints: Object         // Optional extra info for the generator
+#   },
+#   data: {                           // Filled only when type === "data"
+#     type: String,
+#     default: null
+#   },
+#   children: [],
+#   createdAt: { type: Date, default: Date.now },
+#   updatedAt: { type: Date, default: Date.now }
+# }
+

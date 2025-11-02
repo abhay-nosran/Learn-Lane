@@ -1,0 +1,16 @@
+/* Tailwind v4 core import */
+@import "tailwindcss";
+
+/* Global reset to avoid any default margins and ensure full-bleed background */
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+/* Optional: set a default dark background to match the app */
+body {
+  background-color: #111827; /* Tailwind's gray-900 */
+  color: #e5e7eb;            /* Tailwind's gray-200 */
+}
+
+

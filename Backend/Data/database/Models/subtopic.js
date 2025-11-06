@@ -44,6 +44,7 @@ const subtopicSchema = new mongoose.Schema(
         {
           name: { type: String, required: true },
           subtopicId: { type: mongoose.Schema.Types.ObjectId, ref: "subtopic", required: true },
+          publicId : {type : String , required : true }
         },
       ],
       default: [],

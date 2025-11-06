@@ -1,6 +1,7 @@
 require('dotenv').config()
 require("./Data/database/connection");
 const UserController = require("./controllers/User/UserController")
+const Topic = require("./controllers/CreateTopic")
 const express = require("express") ;
 const PORT = process.env.PORT ;
 const app = express() ;
@@ -8,9 +9,8 @@ const app = express() ;
 const generateShallowSubtopic = require("./Data/createShallowSubtopic")
 
 app.use(express.json());
-app.post("/createTopic",(req,res)=>{
-    res.status(200).json({message : "to be implemented"}) 
-}) ;
+app.post("/createTopic",Topic.createTopic) ;
+app.get("/subTopic/:subTopicId",Topic.getSubTopic) ;
 
 app.get("/test", async (req, res) => {
     console.log("test route!")

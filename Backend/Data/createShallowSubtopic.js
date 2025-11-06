@@ -1,4 +1,3 @@
-const { nanoid } = require("nanoid");
 const Subtopic = require("./database/Models/subtopic");
 
 async function createShallowSubtopic({
@@ -13,7 +12,6 @@ async function createShallowSubtopic({
   level = 0 
 }) {
   const subtopic = await Subtopic.create({
-    publicId: nanoid(10),
     name: topicName,
     type: "not-decided",
     status: "not_generated",

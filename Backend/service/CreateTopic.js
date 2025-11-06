@@ -39,9 +39,9 @@ class CreateTopic {
       await topic.save();
 
       // 4. Trigger AI generation or placeholder function
-      await generateSubtopic(subtopic.publicId);
+      const res = await generateSubtopic(subtopic.publicId);
 
-      return { topic, subtopic};
+      return { topic, res};
     } catch (err) {
       console.error("Error creating topic:", err);
       throw err;

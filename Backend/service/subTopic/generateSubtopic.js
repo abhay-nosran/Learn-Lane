@@ -1,6 +1,6 @@
 const getSubtopicFromDb = require("../../Data/getSubtopic");
-const updateSubtopicInDb = require("../../Data/updateSubtopic");
-const createSubtopicsInDb = require("../../Data/createSubtopics");
+const updateSubtopicInDb = require("../../Data/updateSubtopicInDb");
+const createSubtopicsInDb = require("../../Data/createSubtopicsInDb");
 const generateSubtopicFromAI = require("../../AI/generateSubtopicFromAI");
 
 // Generate a subtopic and update it in the database
@@ -10,7 +10,7 @@ async function generateSubtopic(subtopicId) {
   if (!subTopic) throw new Error("Subtopic not found");
 
   // 2. Skip if already generated
-  if (subTopic.status === "generated") return subTopic;
+  // if (subTopic.status === "generated") return subTopic;
 
   // 3. Generate new data from AI based on meta
   const generated = await generateSubtopicFromAI(subTopic.meta);
@@ -28,14 +28,13 @@ async function generateSubtopic(subtopicId) {
     // Group node — create shallow subtopics
     const shallowChildren = generated.children.map(c => ({
       name: c.name,
-      type: c.type || "data",
-      status: "not_generated",
       meta: {
-        parentId: subtopicId,
+        parentId: subTopic._id,
         topicId: subTopic.meta.topicId,
         context: c.meta?.context || subTopic.meta.context,
         generationGoal: c.meta?.generationGoal || `Generate content for ${c.name}`,
         level: (subTopic.meta.level || 0) + 1,
+        timelinePortion : c.meta?.timelinePortion 
       },
     }));
 
@@ -46,7 +45,7 @@ async function generateSubtopic(subtopicId) {
     await updateSubtopicInDb(subtopicId, {
       type: "group",
       status: "generated",
-      children: inserted.map(s => ({ id: s._id, name: s.name })),
+      children: inserted.map(s => ({ id: s._id, name: s.name , publicId : s.publicId})),
     });
   }
 
